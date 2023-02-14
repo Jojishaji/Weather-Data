@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <link rel="icon" type="image/png" href="path-to-your-favicon"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/09724559d9.js" crossorigin="anonymous"></script>
+<style>
+#we{
+    font-size: 7rem;
+    color: white;
+}
+
+
+    .center {
+  position: absolute;
+  top:20%;
+  left:35%;
+  transform: translate(-50%,-50%);
+}
+
+#cloud {
+  background: rgba(255, 255, 255);
+  width: 300px; 
+  height: 100px;
+  border-radius: 150px;	
+  box-shadow: 10px 10px rgba(0,0,0,0.2);
+  animation: move 3s infinite;
+}
+
+#cloud:after {
+  content: '';
+  background: rgba(255, 255, 255);
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  top: -50px;
+  left: 50px;
+}
+
+#cloud:before {
+  content: '';
+  background: rgba(255, 255, 255);
+  position: absolute;
+  width: 170px;
+  height: 150px;
+  border-radius: 50%;
+  top: -90px;
+  right: 40px;
+}
+
+@keyframes move {
+  0% {
+    transform: translatex(0);
+  }
+  50% {
+    transform: translatex(-40px);
+  }
+}
+@media only screen and (max-width: 950px) {
+    #we{
+        font-size: 2rem;
+    }
+    #clock{
+        font-size: 1.3rem;
+
+    }
+    #sizer{
+        font-size: 1.3rem;
+    }
+    
+    }
+</style>
+</head>
+<body style="margin: 0;">
+   <section  style="font-family: 'Josefin Sans', sans-serif;width: 100%;height: 100vh;background-image: url(./images/field-533541.jpg);
+   background-repeat: no-repeat;
+   background-attachment: fixed;
+   background-size: cover;display: flex;" >
+    <div id="partA" style="margin-top: 4%;border-radius: 15px; width: 40%;background-color: rgba(255, 255, 255, 0);height: 80vh;margin-left: auto;margin-right: auto;">
+        <h1   style="color: white;font-size: 7rem;z-index: 2;"id="we">Weather</h1>
+        <div class="center">
+        <div id = "cloud"></div>
+      </div>
+    
+    <div id="imagee" style="width: 20%;height: min-content;background-color: rgba(240, 248, 255, 0.548);margin-bottom: 10px;"></div>
+    <div style="background-color: rgba(255, 255, 255, 0.589);width: 30%;padding: 10px;"><div id="sizer" style="color: rgb(0, 0, 0);font-size: 1.875rem;"><b> World Clock</b></div>
+    <div style="color: rgb(0, 0, 0);font-size: 1.875rem;margin-left: 11px;" id = "clock" onload="currentTime()"></div></div>
+    <ul id="result" style="box-shadow: 0px 0px  10px rgb(0, 0, 0);background-color: rgba(240, 248, 255, 0.788);width: 60%;height: auto;list-style: none;border-radius: 15px;color: rgba(0, 0, 0, 0.795);">
+
+        </ul>
+    </div>
+    <div id="partB" style="margin-top: 4%; border-radius: 15px; width: 40%;background-color: rgba(255, 255, 255, 0.651);height: min-content;;margin-left: auto;margin-right: auto;box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.5) ;">
+    <input id="searchInput" type="text" placeholder="&nbsp;Type Region & Press Enter" style="width:50%;margin-top:5%; margin-left: 10%;font-size: 1.875rem;height: 45px;border-radius: 25px;border: 0px;background-color: rgba(240, 248, 255, 0.61);">
+    <button id="myBtn" style="background-color: rgba(255, 255, 255, 0);border: 0px;font-size: 30px;" type="button" onclick="search()"  ><i class="fa fa-search"></i></button><br><br>
+<ul id="results" style="list-style: none;color:rgba(0, 0, 0, 0.747);font-size: 35px;">
+  
+</ul>
+    
+    </div>
+
+</section> 
+</body>
+<script>
+function currentTime() {
+  let date = new Date(); 
+  let hh = date.getHours();
+  let mm = date.getMinutes();
+  let ss = date.getSeconds();
+  let session = "AM";
+
+  if(hh == 0){
+      hh = 12;
+  }
+  if(hh > 12){
+      hh = hh - 12;
+      session = "PM";
+   }
+
+   hh = (hh < 10) ? "0" + hh : hh;
+   mm = (mm < 10) ? "0" + mm : mm;
+   ss = (ss < 10) ? "0" + ss : ss;
+    
+   let time = hh + ":" + mm + ":" + ss + " " + session;
+
+  document.getElementById("clock").innerText = time; 
+  let t = setTimeout(function(){ currentTime() }, 1000);
+}
+currentTime();
+
+var input = document.getElementById("searchInput");
+input.addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document.getElementById("myBtn").click();
+  }
+});
+
+
+
+  async function search(){
+let country_name = searchInput.value
+if(country_name){
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${country_name}&appid=8ac5c4d57ba6a4b3dfcf622700447b1e`)
+    response.json().then((data)=>{
+        console.log(data);
+        displayDatas(data);
+        displayData(data);
+        displayimg(data);
+    })
+}
+else{
+    alert("Enter a region in Search bar")
+}
+  }
+  function displayDatas(countryDetails){
+    htmlData = `
+    <li id="sizer" style="font-size: 4.375rem;padding-top: 8.9%;padding-bottom: 5px;">${countryDetails.wind.deg}°F</li>
+        <li id="sizer" style="font-size: 30px;"></li>
+        <li id="sizer" style="font-size: 30px;padding-top: 10px;padding-bottom: 10px;"><i class="fa-solid fa-wind"></i>${countryDetails.wind.speed}m/s</li>
+        <li id="sizer" style="font-size: 30px;padding-top: 10px;padding-bottom: 10px;"><i class='fa-solid fa-droplet'></i>${countryDetails.main.humidity}%- Humidity</li>
+    `
+result.innerHTML = htmlData
+  }
+  function displayData(otherDetails){
+    htmlDatas = `
+    <li id="sizer" style="border-bottom:2px solid;padding-top: 2%;padding-bottom: 20px;font-size:3.125rem"><b>${otherDetails.name}</b></li>
+    <li id="sizer" style="border-bottom:2px solid;padding-top: 20px;padding-bottom: 20px;">${otherDetails.weather[0].main}-${otherDetails.weather[0].description}</li>
+    <li id="sizer" style="border-bottom:2px solid;padding-top: 20px;padding-bottom: 20px;">${otherDetails.coord.lon}° N,${otherDetails.coord.lat}° E</li>
+    <li id="sizer" style="border-bottom:2px solid;padding-top: 20px;padding-bottom: 20px;">${otherDetails.main.pressure/1000}atm- Pressure</li>
+    <li id="sizer" style="border-bottom:2px solid;padding-top: 20px;padding-bottom: 20px;">${otherDetails.visibility/1000}km- Visibility</li>
+    <li id="sizer" style="padding-top: 40px;padding-bottom: 2%;text-decoration: underline;">Temperature Ranges</li>
+    <li id="sizer" style="padding-top: 10px;padding-bottom: 10px;font-size: 1.563rem;">Min Temp-${otherDetails.main.temp_min}°F</li>
+    <li id="sizer"  style="padding-top: 10px;padding-bottom: 10px;font-size: 1.563rem;">Max Temp-${otherDetails.main.temp_max}°F</li>
+  
+    
+    `
+results.innerHTML = htmlDatas
+
+  }
+  function displayimg(imageData){
+    htmlDataz =`
+  <img style="width:100px;" src="http://openweathermap.org/img/w/${imageData.weather[0].icon}.png" alt="">`
+  imagee.innerHTML = htmlDataz
+}      
+</script>
+</html>
