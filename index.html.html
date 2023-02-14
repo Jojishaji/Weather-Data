@@ -85,7 +85,7 @@
    background-attachment: fixed;
    background-size: cover;display: flex;" >
     <div id="partA" style="margin-top: 4%;border-radius: 15px; width: 40%;background-color: rgba(255, 255, 255, 0);height: 80vh;margin-left: auto;margin-right: auto;">
-        <h1   style="color: white;font-size: 7rem;z-index: 2;"id="we">Weather</h1>
+        <h1   style="margin-bottom: 1rem; color: white;font-size: 7rem;z-index: 2;"id="we">Weather</h1>
         <div class="center">
         <div id = "cloud"></div>
       </div>
@@ -97,10 +97,10 @@
 
         </ul>
     </div>
-    <div id="partB" style="margin-top: 4%; border-radius: 15px; width: 40%;background-color: rgba(255, 255, 255, 0.651);height: min-content;;margin-left: auto;margin-right: auto;box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.5) ;">
+    <div id="partB" style="margin-top: 3%; border-radius: 15px; width: 40%;background-color: rgba(255, 255, 255, 0.651);height: min-content;;margin-left: auto;margin-right: auto;box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.5) ;">
     <input id="searchInput" type="text" placeholder="&nbsp;Type Region & Press Enter" style="width:50%;margin-top:5%; margin-left: 10%;font-size: 1.875rem;height: 45px;border-radius: 25px;border: 0px;background-color: rgba(240, 248, 255, 0.61);">
     <button id="myBtn" style="background-color: rgba(255, 255, 255, 0);border: 0px;font-size: 30px;" type="button" onclick="search()"  ><i class="fa fa-search"></i></button><br><br>
-<ul id="results" style="list-style: none;color:rgba(0, 0, 0, 0.747);font-size: 35px;">
+<ul id="results" style="margin-top: 0px; list-style: none;color:rgba(0, 0, 0, 0.747);font-size: 35px;">
   
 </ul>
     
@@ -163,7 +163,6 @@ else{
   function displayDatas(countryDetails){
     htmlData = `
     <li id="sizer" style="font-size: 4.375rem;padding-top: 8.9%;padding-bottom: 5px;">${countryDetails.wind.deg}°F</li>
-        <li id="sizer" style="font-size: 30px;"></li>
         <li id="sizer" style="font-size: 30px;padding-top: 10px;padding-bottom: 10px;"><i class="fa-solid fa-wind"></i>${countryDetails.wind.speed}m/s</li>
         <li id="sizer" style="font-size: 30px;padding-top: 10px;padding-bottom: 10px;"><i class='fa-solid fa-droplet'></i>${countryDetails.main.humidity}%- Humidity</li>
     `
@@ -171,7 +170,7 @@ result.innerHTML = htmlData
   }
   function displayData(otherDetails){
     htmlDatas = `
-    <li id="sizer" style="border-bottom:2px solid;padding-top: 2%;padding-bottom: 20px;font-size:3.125rem"><b>${otherDetails.name}</b></li>
+    <li id="sizer" style="border-bottom:2px solid;padding-top: 1%;padding-bottom: 20px;font-size:3.125rem"><b>${otherDetails.name}</b></li>
     <li id="sizer" style="border-bottom:2px solid;padding-top: 20px;padding-bottom: 20px;">${otherDetails.weather[0].main}-${otherDetails.weather[0].description}</li>
     <li id="sizer" style="border-bottom:2px solid;padding-top: 20px;padding-bottom: 20px;">${otherDetails.coord.lon}° N,${otherDetails.coord.lat}° E</li>
     <li id="sizer" style="border-bottom:2px solid;padding-top: 20px;padding-bottom: 20px;">${otherDetails.main.pressure/1000}atm- Pressure</li>
